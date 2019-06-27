@@ -1,0 +1,15 @@
+server:
+  port: 6001
+
+spring:
+  application:
+    name: eureka-server-6001
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    eureka-connection-idle-timeout-seconds: 2000
+    eureka-server-connect-timeout-seconds: 2000
+    service-url:
+      defaultZone: http://eureka6001.com:6001/eureka/
