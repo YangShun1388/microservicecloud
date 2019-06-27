@@ -6,7 +6,7 @@ spring:
 --- 
 
 spring: 
-    profiles: dev #开发环境
+    profiles: prod #生产环境
     application: 
         name: microservice-config-dev 
         
@@ -18,10 +18,53 @@ spring:
         name: microservice-config-test 
 
 --- 
+   
+company:
+  name: www.fhzz.com
+
+server:
+  port: 7001
 
 spring: 
-    profiles: prod #生产环境
-    application: 
-        name: microservice-config-prod 
+  profiles: dev  #开发环境
+  application:
+    name: microservie-dept  #服务的应用名称，必须设置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.2.37:3306/cloudDB01?useUnicode=true&characyerEncoding=utf8
+    username: root
+    password: 123456
+    dbcp2:
+      min-idle: 5
+      max-total: 10
+      max-wait-millis: 200
+  artemis:
+    host:
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka6001.com:6001/eureka/
+  instance:
+    instance-id: dept-service-7001   #自定义服务名
+    prefer-ip-address: true          #开启ip作为标志
 
-        
+info:
+  app.name: $project.build.finalName$
+  company.name: $company.name$
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+mybatis:
+  config-location:
+    - classpath:/mybatis/mybatis-config.xml
+  mapper-locations:
+    - classpath:/mybatis/mapper/*.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+  type-aliases-package: com.test.springcloud.pojo
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        
