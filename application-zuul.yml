@@ -1,0 +1,24 @@
+server:
+  port: 9527
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka6001.com:6001/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: mircroservice-zuul-id
+
+spring:
+  application:
+    name: mircroservice-gateway-zuul
+
+zuul:
+  prefix: /fhzz
+  ignored-services: microservie-dept #多个使用 "*"
+  routes:
+    mydept.serviceId: microservie-dept
+    mydept.path: /mydept/**
+    mydept-url.path: /mydept-url/**
+    mydept-url.url: http://localhost:7001/
+
